@@ -1,0 +1,5 @@
+## Interface: 80300
+## Title : Addon Template
+## Notes: Just a template
+## Author: Mitlandir
+Core.lua
