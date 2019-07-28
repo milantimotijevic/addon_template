@@ -4,7 +4,7 @@ local sequences = {
 	['third'] = {},
 	['fourth'] = {}
 };
---test
+
 function availableSequence()
 	if next(sequences['first']) == nil then
 		return 'first';
