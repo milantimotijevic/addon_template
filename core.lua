@@ -58,8 +58,22 @@ UnitPowerFrame:SetScript('OnEvent', function(self, event, unitTarget, powerType)
 end);
 
 function calculateCasts(currentPower)
-	local casts = math.floor(currentPower / (sequences['first'][1].cost + sequences['first'][2].cost) * 100)/100;
-	print(casts);
+	local castsFirst = calculateCastsForSequence('first', currentPower);
+	local castsSecond = calculateCastsForSequence('second', currentPower);
+	local castsThird = calculateCastsForSequence('third', currentPower);
+	local castsFourth = calculateCastsForSequence('fourth', currentPower);
+	
+	print('FIRST: ' .. castsFirst);
+	print('SECOND: ' .. castsSecond);
+	print('THIRD: ' .. castsThird);
+	print('FOURTH: ' .. castsFourth);
+end
+
+function calculateCastsForSequence(sequence, currentPower)
+	if next(sequences[sequence]) == nil then
+		return 0;
+	end	
+	return math.floor(currentPower / (sequences[sequence][1].cost + sequences[sequence][2].cost) * 100)/100;
 end
 
 UnitPowerFrame:RegisterEvent('UNIT_POWER_UPDATE');
