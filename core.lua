@@ -17,7 +17,7 @@ function availableSequence()
 	end	
 end
 
-function addSequence(name, firstAbility, secondAbility)
+function addSequence(name, firstAbility, secondAbility) -- TODO make an array
 	local key = availableSequence();
 	sequences[key][1] = {
 		name = firstAbility,
