@@ -1,5 +1,5 @@
 local data = {
-	{'FH/SWP', 'Flash Heal', 'Shadow Word: Pain'}
+	{'FH/SWP', 'Regrowth'}
 };
 
 local sequences = {};
@@ -40,8 +40,10 @@ UnitPowerFrame:SetScript('OnEvent', function(self, event, unitTarget, powerType)
 	calculateCasts(currentMana);
 end);
 
+local CatFormText = StanceButton1:CreateFontString(nil, "OVERLAY", "GameTooltipText")
+CatFormText:SetPoint("BOTTOM",StanceButton1,"TOP",0,7)
 function calculateCasts(currentPower)
-	print(calculateCastsForSequence(1, currentPower));
+	CatFormText:SetText(calculateCastsForSequence(1, currentPower))
 end
 
 function calculateCastsForSequence(sequence, currentPower)
@@ -56,6 +58,9 @@ UnitPowerFrame:RegisterEvent('UNIT_POWER_UPDATE');
 UnitPowerFrame:SetAlpha(1);
 UnitPowerFrame:SetSize(500, 200);
 UnitPowerFrame:SetPoint('BOTTOM', QuickJoinToastButton, 'TOP');
+
+
+
 
 
 
