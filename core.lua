@@ -1,3 +1,7 @@
+local data = {
+	{'FH/SWP', 'Flash Heal', 'Shadow Word: Pain'}
+};
+
 local sequences = {};
 
 function addSequence(name, abilities)
@@ -24,10 +28,9 @@ function getAbilityCost(abilityName)
 	end
 end
 
--- START placeholder
-addSequence('CoolSequence', {'Flash Heal', 'Shadow Word: Pain'});
--- END placeholder
-
+for i, v in ipairs(data) do
+	addSequence(v[1], {v[2], v[3]});
+end	
 
 local UnitPowerFrame = CreateFrame('Frame', 'MITLANDIR_Template_Frame', UIParent, 'BasicFrameTemplateWithInset');
 UnitPowerFrame:SetScript('OnEvent', function(self, event, unitTarget, powerType)
@@ -67,3 +70,4 @@ UnitPowerFrame:SetPoint('BOTTOM', QuickJoinToastButton, 'TOP');
 
 -- get mouoseover frame name
 -- /run print(GetMouseFocus():GetName())
+-- /fstack to see frame names ingame
