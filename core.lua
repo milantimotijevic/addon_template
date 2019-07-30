@@ -1,33 +1,13 @@
-local sequences = {
-	['first'] = {},
-	['second'] = {},
-	['third'] = {},
-	['fourth'] = {}
-};
+local sequences = {};
 
-function availableSequence()
-	if next(sequences['first']) == nil then
-		return 'first';
-	elseif next(sequences['second']) == nil then
-		return 'second';
-	elseif next(sequences['third']) == nil then
-		return 'third';
-	else
-		return 'fourth';
-	end	
-end
+function addSequence(name, abilities)
+	local cost = 0;
 
-function addSequence(name, firstAbility, secondAbility) -- TODO make an array
-	local key = availableSequence();
-	sequences[key][1] = {
-		name = firstAbility,
-		cost = getAbilityCost(firstAbility)
-	};
-	
-	sequences[key][2] = {
-		name = secondAbility,
-		cost = getAbilityCost(secondAbility)
-	};
+	for i, v in ipairs(abilities) do
+		cost = cost + getAbilityCost(v);
+	end
+
+	sequences[#sequences + 1] = {name, cost};
 end
 
 function getAbilityCost(abilityName)
@@ -45,7 +25,7 @@ function getAbilityCost(abilityName)
 end
 
 -- START placeholder
-addSequence('smth', 'Flash Heal', 'Shadow Word: Pain');
+addSequence('CoolSequence', {'Flash Heal', 'Shadow Word: Pain'});
 -- END placeholder
 
 
@@ -58,22 +38,14 @@ UnitPowerFrame:SetScript('OnEvent', function(self, event, unitTarget, powerType)
 end);
 
 function calculateCasts(currentPower)
-	local castsFirst = calculateCastsForSequence('first', currentPower);
-	local castsSecond = calculateCastsForSequence('second', currentPower);
-	local castsThird = calculateCastsForSequence('third', currentPower);
-	local castsFourth = calculateCastsForSequence('fourth', currentPower);
-	
-	print('FIRST: ' .. castsFirst);
-	print('SECOND: ' .. castsSecond);
-	print('THIRD: ' .. castsThird);
-	print('FOURTH: ' .. castsFourth);
+	print(calculateCastsForSequence(1, currentPower));
 end
 
 function calculateCastsForSequence(sequence, currentPower)
 	if next(sequences[sequence]) == nil then
 		return 0;
 	end	
-	return math.floor(currentPower / (sequences[sequence][1].cost + sequences[sequence][2].cost) * 100)/100;
+	return math.floor(currentPower / sequences[1][2] * 100)/100;
 end
 
 UnitPowerFrame:RegisterEvent('UNIT_POWER_UPDATE');
